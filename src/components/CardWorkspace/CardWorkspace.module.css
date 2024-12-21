@@ -1,0 +1,6 @@
+.workspace{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 15px; /* Расстояние между элементами */
+}

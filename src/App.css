@@ -1,0 +1,24 @@
+.wrapper{
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight:normal;
+  font-style: normal;
+  max-width: 1300px; /* Максимальная ширина */
+  margin: 0 auto; /* Центрирование */
+  padding: 0 15px; /* Отступы внутри контейнера */
+  box-sizing: border-box; /* Учитываем padding в ширину элемента */
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+}
+
+
+.title{
+  display: flex;
+  font-size: 40px;
+  margin-bottom: 40px;
+  margin-top: 20px;
+  font-weight:bold;
+}
+
