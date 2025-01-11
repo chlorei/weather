@@ -3,6 +3,8 @@ import { cardReducer } from "./cardReducer";
 import { locationReducer } from "./locationReducer";
 
 
+export type RootState = ReturnType<typeof store.getState>;
+
 const rootReducer = combineReducers({
     card: cardReducer,
     location: locationReducer,
@@ -12,3 +14,4 @@ const rootReducer = combineReducers({
 export const store = configureStore({
     reducer: rootReducer,
 });
+

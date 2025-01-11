@@ -1,10 +1,40 @@
 import { Button, Input, Modal, ModalClose, Sheet, Typography } from '@mui/joy';
-import  {useState } from 'react'
-// import Add from '@mui/icons-material/Add';
+import  { useState } from 'react'
 import s from './AddLocation.module.css'
+import { useDispatch } from 'react-redux';
+import CardService from '../../API/CardService';
+
 const AddLocation = () => {
-    const [location, setLocation] = useState();
-    const [open, setOpen] = useState(false);
+
+
+    type Card = {
+      location: string;
+      grad: string;
+      description: string;
+      id: number;
+    };
+
+    
+    const dispatch = useDispatch();
+    const [currentLocation, setCurrentLocation] = useState<string>("");
+    const [open, setOpen] = useState<boolean>(false);
+    
+
+    async function fetchCard(location: string) {
+      const cardData = await CardService.getAll(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&APPID=344829534daad3b221f3b193eb1d720f`)
+      console.log(cardData)
+      const newCard : Card= {
+        location: cardData.name,
+        grad: cardData.main.temp,
+        description: cardData.weather[0].description,
+        id: Date.now(),
+      }
+      return newCard    } 
+
+    const addCard = (card : Card) => {
+      dispatch({type: "ADD_CARD", payload: card})
+    }
+    
     return (
     <div className={s.addlocation}>
         <Button
@@ -37,26 +67,35 @@ const AddLocation = () => {
           >
             Add new location
           </Typography>
-          {/* <Typography id="modal-desc" textColor="text.tertiary">
-            Make sure to use <code>aria-labelledby</code> on the modal dialog with an
-            optional <code>aria-describedby</code> attribute.
-          </Typography> */}
           <Input 
-            onChange={(e) => setLocation(e.target.value)
-            }
+            onChange={(e) => setCurrentLocation(e.target.value)}
             placeholder="Search"
           />
           <Button
             variant="outlined"
             color="neutral"
             // startDecorator={<Add />}
-            sx={{width: "100px", height: "30px"}}
-            // onClick={}
+            sx={{width: "100px", height: "30px", marginLeft: "50px", marginTop: "10px"}}
+            onClick={async () => {
+              if (currentLocation !== "") {
+                try {
+                  console.log(currentLocation)
+                  const newCard = await fetchCard(currentLocation); // Ждем завершения fetchCard
+                  addCard(newCard); // Передаем полученные данные в addCard
+                  setCurrentLocation(""); // Сбрасываем поле ввода
+                  setOpen(false); // Закрываем модальное окно
+                } catch (error) {
+                  console.error("Ошибка при получении данных карточки:", error);
+                }
+              } else {
+                console.log("ERROR: поле ввода пустое");
+              }
+            }}
         >
           Add
       </Button>
         </Sheet>
-        </Modal>
+        </Modal>  
     </div>
     
     )
