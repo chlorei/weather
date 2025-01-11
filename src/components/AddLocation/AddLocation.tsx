@@ -9,7 +9,7 @@ const AddLocation = () => {
 
     type Card = {
       location: string;
-      grad: string;
+      grad: number;
       description: string;
       id: number;
     };
@@ -25,7 +25,7 @@ const AddLocation = () => {
       console.log(cardData)
       const newCard : Card= {
         location: cardData.name,
-        grad: cardData.main.temp,
+        grad: Math.round(cardData.main.temp),
         description: cardData.weather[0].description,
         id: Date.now(),
       }
