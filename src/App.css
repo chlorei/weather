@@ -3,7 +3,7 @@
   font-optical-sizing: auto;
   font-weight:normal;
   font-style: normal;
-  max-width: 1300px; /* Максимальная ширина */
+  max-width: 1350px; /* Максимальная ширина */
   margin: 0 auto; /* Центрирование */
   padding: 0 15px; /* Отступы внутри контейнера */
   box-sizing: border-box; /* Учитываем padding в ширину элемента */
@@ -22,3 +22,16 @@
   font-weight:bold;
 }
 
+.settings{
+  position: fixed;
+  bottom: 20px;
+  left: 30px;
+  transition: ease 0.3s;
+}
+.settings:hover{
+  background-color: #f1f1f1;
+}
+.settings:active img{
+  background-color: #f1f1f1;
+  transform: scale(0.98)
+}

@@ -1,17 +1,33 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit/react";
+import { configureStore, combineReducers, AnyAction, Reducer } from "@reduxjs/toolkit";
 import { cardReducer } from "./cardReducer";
-import { locationReducer } from "./locationReducer";
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-
-export type RootState = ReturnType<typeof store.getState>;
+const persistConfig = {
+  key: "root",
+  storage,
+};
 
 const rootReducer = combineReducers({
-    card: cardReducer,
-    location: locationReducer,
-})
-
-
-export const store = configureStore({
-    reducer: rootReducer,
+  card: cardReducer, // ✅ locationReducer удален
 });
 
+// ✅ Исправленный persistedReducer
+const persistedReducer = persistReducer<ReturnType<typeof rootReducer>, AnyAction>(
+  persistConfig,
+  rootReducer as unknown as Reducer<ReturnType<typeof rootReducer>, AnyAction>
+);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) => 
+    getDefaultMiddleware({
+      serializableCheck: false, // ✅ Отключаем проверку на сериализуемые значения
+    }),
+});
+
+export const persistor = persistStore(store);
+
+// ✅ Корректный тип RootState
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppDispatch = typeof store.dispatch;
