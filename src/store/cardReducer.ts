@@ -20,7 +20,7 @@ export const cardReducer = (state = defaultState, action: CardAction) => {
     case "ADD_CARD":
       return { 
         ...state, 
-        cardCollection: [...state.cardCollection, action.payload as WeatherCard] // ✅ Уточняем тип
+        cardCollection: [...state.cardCollection, action.payload as WeatherCard]
       };
 
     case "REMOVE_CARD":
