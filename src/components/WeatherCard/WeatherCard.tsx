@@ -4,7 +4,7 @@ import SVGSelector from "../../assets/SVGSelector";
 import s from "./WeatherCard.module.css";
 import ClearIcon from "@mui/icons-material/Clear";
 import { Modal, Box, Typography } from "@mui/material";
-import { WeatherCard as WeatherCardType } from "../../types/types"; // ✅ Импорт типа
+import { WeatherCard as WeatherCardType } from "../../types/types";
 
 const WeatherCard = ({ id, location, description, grad, currentTime }: WeatherCardType) => {
   const dispatch = useDispatch();
@@ -64,7 +64,7 @@ const WeatherCard = ({ id, location, description, grad, currentTime }: WeatherCa
             {grad}°C
           </Typography>
           <Typography variant="h5" sx={{ mt: 2 }}>
-            {currentTime} {/* ✅ Время теперь корректно передается */}
+            {currentTime} {/* передача времени */}
           </Typography>
           <Box sx={{ mt: 2 }}>
             <SVGSelector name={description} />
