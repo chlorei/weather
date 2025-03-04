@@ -10,12 +10,12 @@ const AddLocation = () => {
   const dispatch = useDispatch();
   const [currentLocation, setCurrentLocation] = useState("");
   const [open, setOpen] = useState(false);
-  const [alert, setAlert] = useState<{ message: string; type: "error" | "success" } | null>(null); // ✅ Уведомления
+  const [alert, setAlert] = useState<{ message: string; type: "error" | "success" } | null>(null);
   const cards = useSelector((state: RootState) => state.card.cardCollection);
 
   const showAlert = (message: string, type: "error" | "success") => {
     setAlert({ message, type });
-    setTimeout(() => setAlert(null), 3000); // ✅ Скрываем через 3 секунды
+    setTimeout(() => setAlert(null), 3000); 
   };
 
   const getLocalTime = (timezoneOffset: number): string => {
@@ -31,7 +31,7 @@ const AddLocation = () => {
       );
 
       return {
-        location: cardData.name.toLowerCase(), // ✅ Делаем регистронезависимое сравнение
+        location: cardData.name.toLowerCase(),
         grad: Math.round(cardData.main.temp),
         description: cardData.weather[0].description,
         id: Date.now(),
@@ -84,7 +84,7 @@ const AddLocation = () => {
       return;
     }
 
-    // ✅ Проверяем дубликат
+    
     const isDuplicate = cards.some(card => card.location.toLowerCase() === currentLocation.toLowerCase());
 
     if (isDuplicate) {
@@ -96,19 +96,19 @@ const AddLocation = () => {
     if (newCard) {
       addCard(newCard);
       setCurrentLocation("");
-      showAlert("Город успешно добавлен!", "success"); // ✅ Успешное добавление
+      showAlert("Город успешно добавлен!", "success");
       setOpen(false);
     }
   };
 
   return (
     <div className={s.addlocation}>
-      {/* ✅ Алерты */}
+      {/* Алерты */}
       {alert && (
         <Snackbar
           open
-          autoHideDuration={3000} // ✅ 3 секунды
-          anchorOrigin={{ vertical: "top", horizontal: "right" }} // ✅ Справа сверху
+          autoHideDuration={3000} 
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
         >
           <Alert severity={alert.type}>{alert.message}</Alert>
         </Snackbar>
