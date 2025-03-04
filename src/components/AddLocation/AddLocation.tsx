@@ -70,8 +70,8 @@ const AddLocation = () => {
 
         dispatch({ type: "SET_CARDS", payload: updatedCards });
       } catch (error) {
-        console.error("Ошибка при обновлении карточек:", error);
-        showAlert("Ошибка при обновлении карточек!", "error");
+        console.error("Update error:", error);
+        showAlert("Update Error!", "error");
       }
     };
 
@@ -80,7 +80,7 @@ const AddLocation = () => {
 
   const handleAddLocation = async () => {
     if (!currentLocation.trim()) {
-      showAlert("Введите название города!", "error");
+      showAlert("Enter the city name!", "error");
       return;
     }
 
@@ -88,7 +88,7 @@ const AddLocation = () => {
     const isDuplicate = cards.some(card => card.location.toLowerCase() === currentLocation.toLowerCase());
 
     if (isDuplicate) {
-      showAlert("Этот город уже добавлен!", "error");
+      showAlert("City's already added", "error");
       return;
     }
 
@@ -96,7 +96,7 @@ const AddLocation = () => {
     if (newCard) {
       addCard(newCard);
       setCurrentLocation("");
-      showAlert("Город успешно добавлен!", "success");
+      showAlert("City was successfully added!", "success");
       setOpen(false);
     }
   };

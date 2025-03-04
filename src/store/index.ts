@@ -9,10 +9,9 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  card: cardReducer, // ✅ locationReducer удален
+  card: cardReducer,
 });
 
-// ✅ Исправленный persistedReducer
 const persistedReducer = persistReducer<ReturnType<typeof rootReducer>, AnyAction>(
   persistConfig,
   rootReducer as unknown as Reducer<ReturnType<typeof rootReducer>, AnyAction>
@@ -22,12 +21,12 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => 
     getDefaultMiddleware({
-      serializableCheck: false, // ✅ Отключаем проверку на сериализуемые значения
+      serializableCheck: false, 
     }),
 });
 
 export const persistor = persistStore(store);
 
-// ✅ Корректный тип RootState
+
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
